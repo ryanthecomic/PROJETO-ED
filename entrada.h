@@ -86,9 +86,3 @@ void printLista(Aluno* aluno){
 
     return;
 }
-int main(){
-    Aluno aluno;
-    abrirArquivo("entrada.txt", &aluno);
-    printLista(&aluno);
-    return 0;
-}
