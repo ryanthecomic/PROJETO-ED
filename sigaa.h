@@ -51,6 +51,28 @@ void printarDisciplinas(Disciplina disciplinas[], int numDisciplinas) {
     }
 }
 
+void printarDisciplinaEspecifica(Disciplina disciplinas[], int numDisciplinas, int codigo) {
+    for (int i = 0; i < numDisciplinas; i++) {
+        if (disciplinas[i].ID == codigo) {
+            printf("ID: %d\n", disciplinas[i].ID);
+            printf("Nome: %s\n", disciplinas[i].Nome);
+            printf("Carga Horaria Total: %d\n", disciplinas[i].CargaHorariaTotal);
+            printf("Nivel/Semestre: %d\n", disciplinas[i].NivelSemestre);
+            printf("Numero de Pre-requisitos: %d\n", disciplinas[i].NumPreReqs);
+            if (disciplinas[i].NumPreReqs > 0) {
+                printf("Pre-requisitos: ");
+                for (int j = 0; j < disciplinas[i].NumPreReqs; j++) {
+                    printf("%d ", disciplinas[i].PreReqs[j]);
+                }
+                printf("\n");
+            }
+            printf("\n");
+            return; // Sai da função após encontrar a disciplina
+        }
+    }
+    printf("Disciplina com código %d não encontrada.\n", codigo);
+}
+
 
 int criarBancoDeDisciplinas(Disciplina disciplinas[], int numDisciplinas)
 {
