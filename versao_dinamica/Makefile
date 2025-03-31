@@ -7,7 +7,7 @@ SRC_DIR = src
 INC_DIR = include
 BIN_DIR = bin
 # Arquivos fonte
-SRCS = $(SRC_DIR)/materia_ppc.c $(SRC_DIR)/main.c $(SRC_DIR)/aluno.c
+SRCS = $(SRC_DIR)/materia_ppc.c $(SRC_DIR)/main.c $(SRC_DIR)/aluno.c $(SRC_DIR)/oferta.c
 # Arquivos objeto
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(BIN_DIR)/%.o)
 # Nome do executável
