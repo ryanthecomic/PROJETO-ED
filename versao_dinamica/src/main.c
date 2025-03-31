@@ -1,15 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/materia_ppc.h"
-#include "../include/grade_oferta.h"
 
 int main() {
-    MateriaPPC* listaMaterias = criarEstruturaPPC();
-    GradeOferta grade;
+    MateriaPPC *listaMaterias = criarEstruturaPPC();
 
-    inicializarOferta(&grade);
-    criarEstruturaOferta(&grade);
-    imprimirGradeOferta(&grade);
+    imprimirListaMaterias(listaMaterias);
     
     liberarMaterias(listaMaterias);
 

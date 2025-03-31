@@ -13,6 +13,11 @@ typedef struct RequisitosMateriaPPC {
     struct RequisitosMateriaPPC *Proxima;
 } RequisitosMateriaPPC;
 
+typedef struct HorariosMateriaPPC{
+    char Horario[MAX_HORARIO];
+    struct HorariosMateriaPPC *Proxima;
+}HorariosMateriaPPC;
+
 typedef struct MateriaPPC {
     char Codigo[MAX_CODIGO];
     char Nome[MAX_NOME];
@@ -20,6 +25,7 @@ typedef struct MateriaPPC {
     int CargaHorariaTotal;
     TipoMateriaPPC *Tipo;
     RequisitosMateriaPPC *Requisitos;
+    HorariosMateriaPPC *Horarios;
     struct MateriaPPC *Proxima;
 } MateriaPPC;
 

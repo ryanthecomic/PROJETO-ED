@@ -66,6 +66,30 @@ void adicionarRequisito(MateriaPPC *materia, const char *codigo) {
     }
 }
 
+void adicionarHorario(MateriaPPC *materia, const char *horario){
+    HorariosMateriaPPC *novoHorario = malloc(sizeof(HorariosMateriaPPC));
+
+    if(novoHorario == NULL){
+        printf("Erro ao alocar memória para novo horário.\n");
+        return;
+    }
+
+    strncpy(novoHorario->Horario, horario, MAX_HORARIO);
+    novoHorario->Horario[strcspn(novoHorario->Horario, "\n")] = '\0';
+    novoHorario->Proxima = NULL;
+
+    if(materia->Horarios == NULL){
+        materia->Horarios = novoHorario;
+    } else {
+        HorariosMateriaPPC *atual = materia->Horarios;
+
+        while(atual->Proxima != NULL){
+            atual = atual->Proxima;
+        }
+        atual->Proxima = novoHorario;
+    }
+}
+
 MateriaPPC* criarEstruturaPPC(){
     FILE *ppc = fopen("data/PPC2019.txt", "rt");
 
@@ -89,7 +113,7 @@ MateriaPPC* criarEstruturaPPC(){
             continue;
         }
 
-        char *save_1, *save_2, *save_3;
+        char *save_1, *save_2, *save_3, *save_4;
 
         char *token = strtok_r(linha, ",", &save_1); //codigo
         if(token){
@@ -139,6 +163,19 @@ MateriaPPC* criarEstruturaPPC(){
             }
         }
 
+        token = strtok_r(NULL, ",", &save_1); //horarios
+        if(token){
+            if(strchr(token, ';')){
+                char *horarios = strtok_r(token, ";", &save_4);
+                while(horarios != NULL){
+                    adicionarHorario(novaMateria, horarios);
+                    horarios = strtok_r(NULL, ";", &save_4);
+                }
+            } else {
+                adicionarHorario(novaMateria, token);
+            }
+        }
+
         if(listaMaterias == NULL){
             listaMaterias = novaMateria;
         } else {
@@ -146,7 +183,6 @@ MateriaPPC* criarEstruturaPPC(){
         }
         ultimaMateria = novaMateria;
     }
-
     fclose(ppc);
 
     return listaMaterias;
@@ -168,6 +204,13 @@ void liberarMaterias(MateriaPPC* lista) {
             RequisitosMateriaPPC *proximoRequisito = requisitoAtual->Proxima;
             free(requisitoAtual);
             requisitoAtual = proximoRequisito;
+        }
+
+        HorariosMateriaPPC *horarioAtual = lista->Horarios;
+        while(horarioAtual != NULL){
+            HorariosMateriaPPC *proximoHorario = horarioAtual->Proxima;
+            free(horarioAtual);
+            horarioAtual = proximoHorario;
         }
 
         free(lista);
@@ -200,6 +243,15 @@ void imprimirListaMaterias(MateriaPPC* lista) {
             printf("%s", reqAtual->Codigo);
             reqAtual = reqAtual->Proxima;
             if (reqAtual != NULL) printf(" | ");
+        }
+        printf("\n");
+
+        printf("Horario(s): ");
+        HorariosMateriaPPC* horarioAtual = atual->Horarios;
+        while(horarioAtual != NULL) {
+            printf("%s", horarioAtual->Horario);
+            horarioAtual = horarioAtual->Proxima;
+            if (horarioAtual != NULL) printf(" | ");
         }
         printf("\n");
         
