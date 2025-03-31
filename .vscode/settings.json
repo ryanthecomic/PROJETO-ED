@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "materia_ppc.h": "c"
+        "materia_ppc.h": "c",
+        "aluno.h": "c"
     }
 }
