@@ -5,6 +5,7 @@
 
 #include "../include/aluno.h"
 #include "../include/materia_ppc.h"
+#include "../include/oferta.h"
 
 Aluno* criarAluno(){
     Aluno* novoAluno = malloc(sizeof(Aluno));
